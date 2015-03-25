@@ -1,0 +1,156 @@
+ 
+Building configuration...
+
+Current configuration : 3508 bytes
+!
+! Last configuration change at 02:30:28 PDT Wed Mar 25 2015 by pyclass
+! NVRAM config last updated at 12:05:13 PDT Tue Mar 24 2015 by pyclass
+!
+version 15.4
+no service pad
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+no service password-encryption
+!
+hostname pynet-rtr2
+!
+boot-start-marker
+boot system flash c880data-universalk9-mz.154-2.T1.bin
+boot-end-marker
+!
+!
+logging buffered 20000
+no logging console
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local if-authenticated 
+!
+!
+!
+!
+!
+aaa session-id common
+memory-size iomem 10
+clock timezone PST -8 0
+clock summer-time PDT recurring
+!
+crypto pki trustpoint TP-self-signed-3464025169
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464025169
+ revocation-check none
+ rsakeypair TP-self-signed-3464025169
+!
+!
+crypto pki certificate chain TP-self-signed-3464025169
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 30323531 3639301E 170D3134 30383232 30343231 
+  31355A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363430 
+  32353136 3930819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  81009D36 6199669F 29B1E381 2FA82008 6085F22A 7A36B9FB 53CFC7C6 44351BC5 
+  E085ECF1 21CF7D53 F4D0B399 F896A37E 7AAA148E 19B3CB30 515137BF 82948B16 
+  50BE6CDF 576BD957 83A6963B 8AF1B52E E2E3D10E 8A10CEC1 B99C18F2 8E4C07DB 
+  8432A5C9 19030AA0 008D02DE 8A6433F7 87FCD5B4 0F4D00B8 A2C32BB4 7A15EF40 
+  17CB0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603 
+  551D2304 18301680 1450177D 62A866B1 8D661803 B2497556 658B5373 17301D06 
+  03551D0E 04160414 50177D62 A866B18D 661803B2 49755665 8B537317 300D0609 
+  2A864886 F70D0101 05050003 81810060 9E7080DE 84473738 F319626B 86313893 
+  A9EDCFC8 520659FA 987387ED 94090176 85B7EC32 2DA98163 847AF861 07FACC8C 
+  1240957A E52BEE62 E3B2C897 F48D43DF 9E609852 2A6C6644 3CCA52F4 954987CC 
+  CA305A2F E6996970 A0479E6A 2A3E383A 50EE9D49 89F99312 A04DB132 9BDFF449 
+  6099F2B3 D9588A1A 49DB5601 0139D1
+  	quit
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name twb-tech.com
+ip cef
+no ipv6 cef
+!
+!
+license udi pid CISCO881-K9 sn FTX18298312
+!
+!
+username pyclass privilege 15 secret 5 $1$8V8G$YeyBqs4dIXsaVLF4nlE5l1
+!
+!
+!
+!
+!
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+!
+interface FastEthernet1
+ no ip address
+!
+interface FastEthernet2
+ no ip address
+!
+interface FastEthernet3
+ no ip address
+!
+interface FastEthernet4
+ description *** LAN connection (don't change) ***
+ ip address 10.220.88.21 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan400
+ no ip address
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 10.220.88.1
+!
+!
+snmp-server group READONLY v3 priv read VIEWSTD access 98
+snmp-server view VIEWSTD iso included
+snmp-server community galileo RO 98
+snmp-server ifindex persist
+access-list 98 remark *** SNMP ***
+access-list 98 permit any
+!
+!
+!
+!
+line con 0
+ no modem enable
+line aux 0
+line vty 0 4
+ transport input none
+!
+ntp server 130.126.24.24
+ntp server 152.2.21.1
+onep
+ transport type tls localcert TP-self-signed-3464025169 disable-remotecert-validation
+ service set vty
+!
+end
+ 
