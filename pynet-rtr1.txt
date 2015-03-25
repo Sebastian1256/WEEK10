@@ -1,10 +1,10 @@
  
 Building configuration...
 
-Current configuration : 3682 bytes
+Current configuration : 3684 bytes
 !
-! Last configuration change at 12:43:43 PDT Mon Mar 23 2015 by pyclass
-! NVRAM config last updated at 12:05:13 PDT Tue Mar 24 2015 by pyclass
+! Last configuration change at 03:53:58 PDT Wed Mar 25 2015 by pyclass
+! NVRAM config last updated at 03:54:00 PDT Wed Mar 25 2015 by pyclass
 !
 version 15.4
 no service pad
@@ -19,7 +19,7 @@ boot system flash c880data-universalk9-mz.154-2.T1.bin
 boot-end-marker
 !
 !
-logging buffered 8880
+logging buffered 400000
 no logging console
 enable secret 5 $1$7vQd$vyG8zhPZapWjy8TK6WlSC/
 !
